@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Jurídica Gratuita do Seu Canil — JurisDog</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --night:#0c0f0a;
+  --forest:#1a2e1e;
+  --green:#2d7a3a;
+  --lime:#7ec850;
+  --cream:#f8f4ed;
+  --warm:#ede8df;
+  --gold:#c8952a;
+  --text:#1c1c1a;
+  --muted:#6b6560;
+  --border:rgba(0,0,0,.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:var(--night);
+  position:relative;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  overflow:hidden;
+}
+.hero-grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:.6;
+}
+.hero-glow{
+  position:absolute;
+  top:-20%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(45,122,58,.22) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;
+  bottom:-10%;right:-10%;
+  width:400px;height:400px;
+  background:radial-gradient(ellipse,rgba(200,149,42,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* nav */
+.nav{
+  position:relative;z-index:10;
+  padding:1.8rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+@media(max-width:768px){.nav{padding:1.4rem 1.5rem}}
+.nav-brand{
+  font-family:'Fraunces',serif;
+  font-size:1.4rem;font-weight:700;
+  color:var(--lime);
+  letter-spacing:-.02em;
+}
+.nav-tag{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  border:1px solid rgba(255,255,255,.1);
+  padding:.35rem .8rem;border-radius:20px;
+}
+
+/* hero content */
+.hero-body{
+  position:relative;z-index:5;
+  display:flex;align-items:center;justify-content:center;
+  padding:3rem 4rem;
+  text-align:center;
+}
+@media(max-width:768px){.hero-body{padding:2rem 1.5rem}}
+.hero-inner{max-width:760px}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(45,122,58,.2);
+  border:1px solid rgba(126,200,80,.3);
+  border-radius:20px;
+  padding:.4rem 1rem;
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--lime);
+  margin-bottom:2rem;
+  animation:fadeUp .6s ease both;
+}
+.pill-dot{width:6px;height:6px;background:var(--lime);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  font-weight:900;
+  line-height:1.05;
+  color:#fff;
+  margin-bottom:1.5rem;
+  animation:fadeUp .6s .1s ease both;
+}
+.hero-h1 em{color:var(--lime);font-style:italic}
+.hero-h1 span{color:rgba(255,255,255,.35)}
+.hero-sub{
+  font-size:1.1rem;line-height:1.7;
+  color:rgba(255,255,255,.6);
+  max-width:580px;margin:0 auto 2.5rem;
+  animation:fadeUp .6s .2s ease both;
+}
+.hero-sub strong{color:rgba(255,255,255,.9)}
+
+/* CTA */
+.cta-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  animation:fadeUp .6s .3s ease both;
+}
+.btn-primary{
+  background:var(--lime);
+  color:var(--night);
+  border:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:1rem;font-weight:600;
+  padding:1.1rem 2.8rem;
+  border-radius:4px;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(126,200,80,.3)}
+.cta-micro{
+  font-size:.75rem;color:rgba(255,255,255,.3);
+  font-family:'DM Mono',monospace;letter-spacing:.1em;
+}
+
+/* trust bar */
+.trust-bar{
+  position:relative;z-index:5;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:1.5rem 4rem;
+  display:flex;align-items:center;justify-content:center;gap:3rem;
+  flex-wrap:wrap;
+  animation:fadeUp .6s .4s ease both;
+}
+@media(max-width:768px){.trust-bar{padding:1.5rem;gap:1.5rem}}
+.trust-item{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.78rem;color:rgba(255,255,255,.4);
+}
+.trust-item strong{color:rgba(255,255,255,.75)}
+
+/* ── SOCIAL PROOF ── */
+.proof{background:var(--warm);padding:5rem 4rem}
+@media(max-width:768px){.proof{padding:3rem 1.5rem}}
+.section-label{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--green);margin-bottom:.6rem;
+}
+.section-h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:700;line-height:1.15;
+  color:var(--text);margin-bottom:3rem;
+}
+.section-h2 em{font-style:italic;color:var(--green)}
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+  max-width:800px;margin:0 auto 4rem;
+  text-align:center;
+}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr}}
+.stat-num{
+  font-family:'Fraunces',serif;
+  font-size:3rem;font-weight:900;
+  color:var(--green);line-height:1;margin-bottom:.4rem;
+}
+.stat-desc{font-size:.85rem;color:var(--muted);line-height:1.5}
+
+/* testimonials */
+.testi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;max-width:1000px;margin:0 auto}
+@media(max-width:900px){.testi-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.testi-grid{grid-template-columns:1fr}}
+.testi{
+  background:#fff;border:1px solid var(--border);
+  border-radius:8px;padding:1.4rem 1.5rem;
+  position:relative;
+}
+.testi::before{
+  content:'"';
+  font-family:'Fraunces',serif;
+  font-size:4rem;font-style:italic;line-height:1;
+  color:var(--lime);
+  position:absolute;top:-.4rem;left:1rem;
+  opacity:.5;
+}
+.testi-text{font-size:.85rem;color:var(--text);line-height:1.7;margin-bottom:1rem;padding-top:.8rem}
+.testi-author{font-size:.75rem;color:var(--muted)}
+.testi-author strong{color:var(--text);display:block;margin-bottom:.1rem}
+
+/* ── COMO FUNCIONA ── */
+.how{background:var(--cream);padding:5rem 4rem}
+@media(max-width:768px){.how{padding:3rem 1.5rem}}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:900px;margin:0 auto}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+.step{text-align:center;padding:2rem 1.5rem}
+.step-num{
+  font-family:'Fraunces',serif;
+  font-size:3rem;font-weight:900;
+  color:var(--lime);line-height:1;margin-bottom:1rem;
+  opacity:.4;
+}
+.step h3{
+  font-family:'Fraunces',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--text);margin-bottom:.6rem;
+}
+.step p{font-size:.85rem;color:var(--muted);line-height:1.7}
+
+/* ── O QUE VOCÊ DESCOBRE ── */
+.discovers{
+  background:var(--forest);
+  padding:5rem 4rem;
+}
+@media(max-width:768px){.discovers{padding:3rem 1.5rem}}
+.discovers .section-label{color:var(--lime)}
+.discovers .section-h2{color:#fff}
+.discovers .section-h2 em{color:var(--lime)}
+.disc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:860px}
+@media(max-width:600px){.disc-grid{grid-template-columns:1fr}}
+.disc-item{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:6px;padding:1.2rem 1.4rem;
+}
+.disc-icon{
+  width:36px;height:36px;border-radius:6px;
+  background:rgba(126,200,80,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.disc-text h4{font-size:.88rem;font-weight:600;color:#fff;margin-bottom:.3rem}
+.disc-text p{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.6}
+
+/* ── QUEM ATENDEMOS ── */
+.who{background:var(--warm);padding:5rem 4rem}
+@media(max-width:768px){.who{padding:3rem 1.5rem}}
+.who-grid{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.who-pill{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:40px;padding:.6rem 1.2rem;
+  font-size:.85rem;font-weight:500;color:var(--text);
+  display:flex;align-items:center;gap:.5rem;
+}
+
+/* ── FORM ── */
+.form-section{
+  background:var(--night);
+  padding:6rem 4rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+@media(max-width:768px){.form-section{padding:4rem 1.5rem}}
+.form-section::before{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;
+  background:radial-gradient(ellipse,rgba(45,122,58,.15) 0%,transparent 65%);
+  pointer-events:none;
+}
+.form-section .section-label{color:var(--lime)}
+.form-section .section-h2{color:#fff;margin-bottom:.6rem}
+.form-section .section-h2 em{color:var(--lime)}
+.form-desc{font-size:.9rem;color:rgba(255,255,255,.45);margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto}
+.form-wrap{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:2.5rem;
+  max-width:460px;
+  margin:0 auto;
+  position:relative;z-index:2;
+}
+.form-row{display:flex;flex-direction:column;gap:1rem;margin-bottom:1rem}
+.f-group{display:flex;flex-direction:column;gap:.4rem;text-align:left}
+.f-label{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.f-input{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:4px;padding:.8rem 1rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;color:#fff;
+  outline:none;transition:border .2s;
+  width:100%;
+}
+.f-input::placeholder{color:rgba(255,255,255,.2)}
+.f-input:focus{border-color:var(--lime)}
+.f-select{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:4px;padding:.8rem 1rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;color:rgba(255,255,255,.7);
+  outline:none;width:100%;cursor:pointer;
+  appearance:none;
+}
+.f-select option{background:#1a2e1e;color:#fff}
+.btn-form{
+  width:100%;background:var(--lime);color:var(--night);
+  border:none;font-family:'DM Sans',sans-serif;
+  font-size:1rem;font-weight:600;
+  padding:1.1rem;border-radius:4px;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+  margin-top:.5rem;
+}
+.btn-form:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(126,200,80,.25)}
+.form-micro{
+  font-size:.7rem;color:rgba(255,255,255,.2);
+  margin-top:.8rem;font-family:'DM Mono',monospace;
+  letter-spacing:.05em;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--forest);
+  padding:2rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+@media(max-width:768px){footer{padding:1.5rem}}
+.f-brand{
+  font-family:'Fraunces',serif;
+  font-size:1rem;font-weight:700;color:var(--lime);
+}
+.f-info{font-size:.72rem;color:rgba(255,255,255,.25)}
+
+/* ── STICKY CTA ── */
+.sticky-cta{
+  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
+  background:var(--lime);color:var(--night);
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;
+  padding:.85rem 2rem;border-radius:40px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+  cursor:pointer;border:none;
+  transition:transform .2s,opacity .3s;
+  z-index:999;white-space:nowrap;
+  opacity:0;pointer-events:none;
+  text-decoration:none;display:inline-block;
+}
+.sticky-cta.visible{opacity:1;pointer-events:auto}
+.sticky-cta:hover{transform:translateX(-50%) translateY(-2px)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY CTA -->
+<a href="#agendar" class="sticky-cta" id="stickyCta">🐾 Quero minha análise gratuita</a>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <nav class="nav">
+    <div class="nav-brand">JurisDog</div>
+    <div class="nav-tag">Dr. Thiago Sodré · JurisDog</div>
+  </nav>
+
+  <div class="hero-body">
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Análise 100% gratuita · Vagas limitadas
+      </div>
+      <h1 class="hero-h1">
+        Seu canil está<br>
+        <em>realmente protegido</em><br>
+        <span>juridicamente?</span>
+      </h1>
+      <p class="hero-sub">
+        8 em cada 10 criadores que analisamos tinham pelo menos <strong>uma brecha contratual grave</strong> — e não sabiam. Descubra a situação real do seu canil em 20 minutos, sem custo.
+      </p>
+      <div class="cta-wrap">
+        <a href="#agendar" class="btn-primary">Quero minha análise gratuita →</a>
+        <div class="cta-micro">✓ Gratuito &nbsp;&nbsp; ✓ Online &nbsp;&nbsp; ✓ 20 minutos &nbsp;&nbsp; ✓ Sem compromisso</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-item">🐕 <span><strong>400+</strong> canais analisados</span></div>
+    <div class="trust-item">⚖️ <span><strong>Especialização</strong> 100% no setor pet</span></div>
+    <div class="trust-item">🛡️ <span><strong>R$ 2M+</strong> em riscos evitados</span></div>
+    <div class="trust-item">⭐ <span><strong>4.9/5</strong> de avaliação</span></div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ── -->
+<section class="proof">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-label">Por que isso importa</div>
+    <h2 class="section-h2">O risco jurídico que criadores<br><em>ignoram — até que é tarde demais</em></h2>
+
+    <div class="stats-row">
+      <div>
+        <div class="stat-num">78%</div>
+        <div class="stat-desc">dos criadores usam contratos copiados da internet, sem validade jurídica real</div>
+      </div>
+      <div>
+        <div class="stat-num">R$22k</div>
+        <div class="stat-desc">valor médio de indenização em processos contra criadores no Brasil em 2024</div>
+      </div>
+      <div>
+        <div class="stat-num">20min</div>
+        <div class="stat-desc">é tudo que você precisa para sair com um diagnóstico completo e gratuito</div>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi">
+        <p class="testi-text">Tinha um contrato padrão que baixei na internet. O Dr. Thiago me mostrou 4 brechas que me deixavam exposta a processo. Regularizei tudo em 2 semanas.</p>
+        <div class="testi-author"><strong>Carla M.</strong>Criadora de Golden Retriever · SP</div>
+      </div>
+      <div class="testi">
+        <p class="testi-text">Achei que era coisa pra canil grande. Me enganei. A análise mostrou que meu processo de venda de filhote tinha um risco sério de responsabilidade por defeito genético.</p>
+        <div class="testi-author"><strong>Rafael T.</strong>Criador de Bulldog Francês · RJ</div>
+      </div>
+      <div class="testi">
+        <p class="testi-text">A especialização no setor pet faz toda a diferença. Meu advogado anterior nunca tinha ouvido falar de contrato de ninhada. Aqui é outra realidade.</p>
+        <div class="testi-author"><strong>Ana P.</strong>Criadora de Maine Coon · MG</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO FUNCIONA ── -->
+<section class="how">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-label">Como funciona</div>
+    <h2 class="section-h2">3 passos. <em>20 minutos.</em> Diagnóstico completo.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Você agenda</h3>
+        <p>Preenche o formulário abaixo com seus dados e o tipo do seu canil. Confirmamos em até 2 horas.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>A gente analisa</h3>
+        <p>Em uma chamada de 20 minutos, o Dr. Thiago mapeia os pontos de risco específicos da sua operação.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Você decide</h3>
+        <p>Recebe o diagnóstico completo. Sem pressão. Você decide se quer avançar — ou não.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── O QUE VOCÊ DESCOBRE ── -->
+<section class="discovers">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-label">O que você recebe</div>
+    <h2 class="section-h2">O que a análise <em>revela</em> sobre seu canil</h2>
+    <div class="disc-grid" style="margin-top:2rem">
+      <div class="disc-item">
+        <div class="disc-icon">📄</div>
+        <div class="disc-text">
+          <h4>Validade dos seus contratos</h4>
+          <p>Se seu contrato de venda de filhote te protege ou te expõe em caso de reclamação.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <div class="disc-icon">🧬</div>
+        <div class="disc-text">
+          <h4>Responsabilidade genética</h4>
+          <p>Se você está coberto em casos de doenças hereditárias nos filhotes vendidos.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <div class="disc-icon">🏠</div>
+        <div class="disc-text">
+          <h4>Regularidade do canil</h4>
+          <p>Se sua operação está em conformidade com as normas municipais e federais vigentes.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <div class="disc-icon">💰</div>
+        <div class="disc-text">
+          <h4>Exposição financeira</h4>
+          <p>Quanto você pode perder em um processo com sua estrutura atual — e como reduzir isso.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <div class="disc-icon">🤝</div>
+        <div class="disc-text">
+          <h4>Contratos com parceiros</h4>
+          <p>Se seus acordos com veterinários, pet shops e handlers têm respaldo jurídico.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <div class="disc-icon">📋</div>
+        <div class="disc-text">
+          <h4>Plano de regularização</h4>
+          <p>O caminho exato para corrigir cada brecha encontrada — priorizado por urgência.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUEM ATENDEMOS ── -->
+<section class="who">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-label">Público atendido</div>
+    <h2 class="section-h2">Para quem é essa análise</h2>
+    <div class="who-grid">
+      <div class="who-pill">🐕 Criadores de cães</div>
+      <div class="who-pill">🐈 Criadores de gatos</div>
+      <div class="who-pill">🏥 Clínicas veterinárias</div>
+      <div class="who-pill">🛒 Pet shops</div>
+      <div class="who-pill">✂️ Groomers</div>
+      <div class="who-pill">🏆 Handlers</div>
+      <div class="who-pill">🎓 Treinadores</div>
+      <div class="who-pill">🐾 Pequenos e grandes canais</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM ── -->
+<section class="form-section" id="agendar">
+  <div style="position:relative;z-index:2;max-width:800px;margin:0 auto">
+    <div class="section-label">Agendar análise gratuita</div>
+    <h2 class="section-h2">Reserve sua vaga <em>agora</em></h2>
+    <p class="form-desc">Preencha abaixo. Confirmamos o horário em até 2 horas por WhatsApp.</p>
+
+    <div class="form-wrap">
+      <div class="form-row">
+        <div class="f-group">
+          <label class="f-label">Seu nome completo</label>
+          <input class="f-input" id="f-nome" type="text" placeholder="Ex: Carlos Mendes">
+        </div>
+        <div class="f-group">
+          <label class="f-label">Nome do canil</label>
+          <input class="f-input" id="f-canil" type="text" placeholder="Ex: Canil Boa Vista">
+        </div>
+        <div class="f-group">
+          <label class="f-label">E-mail</label>
+          <input class="f-input" id="f-email" type="email" placeholder="seu@email.com.br">
+        </div>
+        <div class="f-group">
+          <label class="f-label">WhatsApp com DDD</label>
+          <input class="f-input" id="f-wpp" type="tel" placeholder="(11) 99999-9999">
+        </div>
+        <div class="f-group">
+          <label class="f-label">Cidade / Estado</label>
+          <input class="f-input" id="f-cidade" type="text" placeholder="Ex: Curitiba / PR">
+        </div>
+        <div class="f-group">
+          <label class="f-label">Tipo de operação</label>
+          <select class="f-select" id="f-tipo">
+            <option value="" disabled selected>Selecione...</option>
+            <option>Criador de cães</option>
+            <option>Criador de gatos</option>
+            <option>Clínica veterinária</option>
+            <option>Pet shop</option>
+            <option>Groomer / Handler</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Principal dúvida ou preocupação</label>
+          <input class="f-input" id="f-duvida" type="text" placeholder="Ex: meus contratos de filhote">
+        </div>
+      </div>
+      <button class="btn-form" onclick="submeter()">Quero minha análise gratuita →</button>
+      <div class="form-micro">🔒 Seus dados são confidenciais · Sem spam · Sem venda forçada</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">JurisDog</div>
+  <div class="f-info">© 2026 JurisDog · Dr. Thiago Sodré · comercial@grupojurisdog.com.br · (11) 52415360</div>
+</footer>
+
+<script>
+// Sticky CTA
+const sticky = document.getElementById('stickyCta');
+window.addEventListener('scroll', () => {
+  sticky.classList.toggle('visible', window.scrollY > 600);
+});
+
+// Form submit → envia lead direto para WhatsApp
+function submeter() {
+  const nome   = document.getElementById('f-nome').value.trim();
+  const canil  = document.getElementById('f-canil').value.trim();
+  const email  = document.getElementById('f-email').value.trim();
+  const wpp    = document.getElementById('f-wpp').value.trim();
+  const cidade = document.getElementById('f-cidade').value.trim();
+  const tipo   = document.getElementById('f-tipo').value;
+  const duvida = document.getElementById('f-duvida').value.trim();
+
+  if (!nome || !wpp) {
+    alert('Por favor, preencha pelo menos seu nome e WhatsApp.');
+    return;
+  }
+
+  const msg = encodeURIComponent(
+    `🐾 *Solicitação de Análise Jurídica Gratuita*\n\n` +
+    `*Nome:* ${nome}\n` +
+    `*Nome do Canil:* ${canil || 'Não informado'}\n` +
+    `*E-mail:* ${email || 'Não informado'}\n` +
+    `*WhatsApp:* ${wpp}\n` +
+    `*Cidade/Estado:* ${cidade || 'Não informado'}\n` +
+    `*Tipo de operação:* ${tipo || 'Não informado'}\n` +
+    `*Principal dúvida:* ${duvida || 'Não informado'}`
+  );
+
+  const btn = document.querySelector('.btn-form');
+  btn.textContent = '✓ Redirecionando para o WhatsApp...';
+  btn.style.background = '#2d7a3a';
+  btn.style.color = '#fff';
+
+  setTimeout(() => {
+    window.open(`https://wa.me/1152415360?text=${msg}`, '_blank');
+  }, 600);
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
