@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "bio.jurisdog.com.br" }],
+      "destination": "/link-bio-jurisdog.html"
+    }
+  ]
+}
