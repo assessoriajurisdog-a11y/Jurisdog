@@ -504,8 +504,8 @@
     <div class="ebook-icon">📘</div>
     <div class="ebook-info">
       <span class="ebook-tag">Download gratuito</span>
-      <div class="ebook-title">Dossiê Confidencial do Criador</div>
-      <div class="ebook-sub">Sabe quem pode fiscalizar seu criadouro?</div>
+      <div class="ebook-title">Manual de Sobrevivência nº 01</div>
+      <div class="ebook-sub">O que fazer no dia em que a fiscalização chegar</div>
     </div>
     <span style="color:var(--lime);font-size:1.1rem">↓</span>
   </div>
@@ -535,19 +535,19 @@
   <div class="modal">
     <div class="m-handle"></div>
     <span class="m-icon">📘</span>
-    <div class="m-title">Dossiê Confidencial<br>do Criador</div>
-    <div class="m-sub">Aprenda quem pode entrar no seu criadouro para fiscalizar!</div>
+    <div class="m-title">Manual de Sobrevivência<br>nº 01</div>
+    <div class="m-sub">O passo a passo da primeira fiscalização, do primeiro minuto até a saída do fiscal.</div>
     <div class="m-list">
-      <div class="m-li"><span class="m-check">✓</span><span>Quem pode e quem não pode entrar no seu criadouro</span></div>
-      <div class="m-li"><span class="m-check">✓</span><span>O que ter e o que não ter no seu criadouro</span></div>
-      <div class="m-li"><span class="m-check">✓</span><span>O que falar e o que não falar durante uma fiscalização</span></div>
+      <div class="m-li"><span class="m-check">✓</span><span>O que fazer quando o fiscal chega no seu portão</span></div>
+      <div class="m-li"><span class="m-check">✓</span><span>Quais documentos deixar prontos antes da visita</span></div>
+      <div class="m-li"><span class="m-check">✓</span><span>O que falar e o que não falar durante a fiscalização</span></div>
     </div>
     <div class="m-form">
       <input class="m-inp" id="eb-nome" type="text" placeholder="Seu nome" autocomplete="name">
       <input class="m-inp" id="eb-email" type="email" placeholder="Seu melhor e-mail" autocomplete="email">
       <input class="m-inp" id="eb-wpp" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel">
-      <button class="m-cta" onclick="receberEbook()">Quero receber o dossiê gratuito →</button>
-      <div class="m-ok" id="eb-ok">✓ Você vai receber o dossiê no WhatsApp em instantes. 🐾</div>
+      <button class="m-cta" onclick="receberEbook()">Quero receber o manual gratuito →</button>
+      <div class="m-ok" id="eb-ok">✓ Você vai receber o manual no WhatsApp em instantes. 🐾</div>
       <div class="m-micro">🔒 Sem spam · Dados protegidos pela LGPD</div>
       <button class="m-close" onclick="fecharEbook()">fechar</button>
     </div>
@@ -572,7 +572,7 @@ function receberEbook(){
   const wpp=document.getElementById('eb-wpp').value.trim();
   if(!nome||!wpp){alert('Por favor preencha nome e WhatsApp.');return;}
   const msg=encodeURIComponent(
-    `📘 *Dossiê Confidencial do Criador · JurisDog*\n\n`+
+    `📘 *MANUAL · Manual de Sobrevivência nº 01 · JurisDog*\n\n`+
     `*Nome:* ${nome}\n`+
     `*E-mail:* ${email||'Não informado'}\n`+
     `*WhatsApp:* ${wpp}`
